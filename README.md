@@ -19,11 +19,11 @@ The repo contains the following files and directories.
 
 ### Artifact part 1: our approach for detecting and creating indivisible multi-hunk bugs
 
-Please refer to our CatenaD4J repo [here](https://github.com/universetraveller/CatenaD4j).
+Please refer to our CatenaD4J repo [here](https://github.com/universetraveller/CatenaD4j) (tag: Snapshot_Artifact_Evaluation).
 
 ### Artifact part 2: our evaluation of existing repair techniques on indivisible multi-hunk bugs
 
-Please refer to our RepairResults repo [here](https://github.com/BaiGeiQiShi/RepairResults).
+Please refer to our RepairResults repo [here](https://github.com/BaiGeiQiShi/RepairResults) (tag: v1.0.0).
 
 ### Artifact part 3: our study of how indivisible multi-hunk bugs are repaired by developers and existing tools
 
