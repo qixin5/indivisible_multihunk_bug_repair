@@ -8,7 +8,7 @@ The paper has three parts presenting: (1) an approach proposed to detect and cre
 (3) a study of how these bugs are repaired by the developers and the existing tools.
 Correspondingly, the artifact has three key components. We use seperate links for the components for (1) and (2). Please see the sub-sections below.
 The component for (3) can be accessed [here](bug_repair_study) from this repo.
-The artifact contains the following files and directories.
+The repo contains the following files and directories.
 
 - **README.md**: This file.
 - **LICENSE.md**: The license file.
