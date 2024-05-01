@@ -12,6 +12,9 @@ The repo contains the following files and directories.
 
 - **README.md**: This file.
 - **LICENSE.md**: The license file.
+- **REQUIREMENTS.txt**: The requirement file includes the environment requirement for experiment replication.
+- **STATUS.txt**: This file shows the badgets we applied for and includes the reasons.
+- **INSTALL.txt**: The file includes installation guidelines.
 - **bug_repair_study**: This directory contains materials related to (3), which is our study of how indivisible multi-hunk bugs are repaired by the developers and the existing tools.
 
 ### Artifact part 1: our approach for detecting and creating indivisible multi-hunk bugs
