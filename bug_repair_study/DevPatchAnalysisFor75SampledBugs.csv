@@ -1,0 +1,1148 @@
+﻿Bug_id,Detailed Fix,Semantic Categorization,Comment,,,,,,,,,,,,,,,,,,,
+Chart_2b5,"1241a1249
+>                     double value = ixyd.getYValue(series, item);^M
+1243a1252,1255
+>                     if (!Double.isNaN(value)) {^M
+>                         minimum = Math.min(minimum, value);^M
+>                         maximum = Math.max(maximum, value);^M
+>                     }^M",DU:Def-and-use,DU location distance: 2,,,,,,,,,,,,,,,,,,,
+Chart_2b6,"754a755
+>                     double value = intervalXYData.getXValue(series, item);^M
+756a758,761
+>                     if (!Double.isNaN(value)) {^M
+>                         minimum = Math.min(minimum, value);^M
+>                         maximum = Math.max(maximum, value);^M
+>                     }^M",DU:Def-and-use,DU location distance: 2,,,,,,,,,,,,,,,,,,,
+Chart_4b1,"4492a4493
+>                 if (r != null) {^M
+4500a4502
+>                 }^M",OA:One-action,OA location distance: 8,,,,,,,,,,,,,,,,,,,
+Chart_15b1,"1377a1378,1380
+>         if (this.dataset == null) {^M
+>             return 0.0;^M
+>         }^M
+2050a2054
+>         if (this.dataset != null) {^M
+2052a2057
+>         }^M","RIF:Related-issue-fix
+OA:One-action","Related-issue: Failure due to dataset being null in both locations. SAME-VARIABLE-HAS-SAME-PROBLEM
+
+OA location distance: 2",,,,,,,,,,,,,,,,,,,
+Chart_18b2,"318d317
+<         if (index < this.keys.size()) {
+320d318
+<         }",OA:One-action,OA location distance: 2,,,,,,,,,,,,,,,,,,,
+Chart_18b3,"diff -r Chart_18_buggy/source/org/jfree/data/DefaultKeyedValues.java Chart_18_fixed/source/org/jfree/data/DefaultKeyedValues.java
+318d317
+<         if (index < this.keys.size()) {
+320d318
+<         }
+diff -r Chart_18_buggy/source/org/jfree/data/DefaultKeyedValues2D.java Chart_18_fixed/source/org/jfree/data/DefaultKeyedValues2D.java
+454a455,460
+>       if (columnKey == null) {^M
+>               throw new IllegalArgumentException(""Null 'columnKey' argument."");^M
+>       }^M
+>       if (!this.columnKeys.contains(columnKey)) {^M
+>               throw new UnknownKeyException(""Unknown key: "" + columnKey);^M
+>       }^M","OA:One-action
+DIF:Different-issue-fix","First fix tackles an exception raised by executing the test line ""d.addValue(new Double(3.0), ""R2"", ""C2"");"". 
+Second fix is used to address a failing assertion caused by removing a non-existent value ""d.removeColumn(""XXX"")"".
+One can identify progress by checking which test line causes the failure.
+
+OA location distance: 2",,,,,,,,,,,,,,,,,,,
+Chart_22b4,"231d230
+<         if (row >= 0) {^M
+233c232,234
+<             return rowData.getObject(columnKey);^M
+---
+>         int index = rowData.getIndex(columnKey);^M
+>         if (index >= 0) {^M
+>             return rowData.getObject(index);^M",EOH:Essentially-one-hunk,"Removing the ""if (row >= 0)"" part is not needed. As method has already checked whether row is less than 0 before doing the fix.
+
+First fix is created only for readability enhancement.",,,,,,,,,,,,,,,,,,,
+Chart_25b3,"459c468,470
+<             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();^M
+---
+>         Number n = dataset.getStdDevValue(row, column);^M
+>         if (n != null) {^M
+>             double valueDelta = n.doubleValue();^M
+486a498
+>         }^M",OA:One-action,OA location distance: 27,,,,,,,,,,,,,,,,,,,
+Chart_25b4,"315c318,320
+<             double valueDelta = dataset.getStdDevValue(row, column).doubleValue();^M
+---
+>         Number n = dataset.getStdDevValue(row, column);^M
+>         if (n != null) {^M
+>             double valueDelta = n.doubleValue();^M
+343a349
+>         }^M",OA:One-action,OA location distance: 28,,,,,,,,,,,,,,,,,,,
+Chart_26b1,"1191a1192
+>             if (owner != null) {^M
+1196a1198
+>             }^M",OA:One-action,OA location distance: 5,,,,,,,,,,,,,,,,,,,
+Lang_5b1,"96a97,116
+>         if (ch0 == '_') {
+>             if (len < 3) {
+>                 throw new IllegalArgumentException(""Invalid locale format: "" + str);
+>             }
+>             final char ch1 = str.charAt(1);
+>             final char ch2 = str.charAt(2);
+>             if (!Character.isUpperCase(ch1) || !Character.isUpperCase(ch2)) {
+>                 throw new IllegalArgumentException(""Invalid locale format: "" + str);
+>             }
+>             if (len == 3) {
+>                 return new Locale("""", str.substring(1, 3));
+>             }
+>             if (len < 5) {
+>                 throw new IllegalArgumentException(""Invalid locale format: "" + str);
+>             }
+>             if (str.charAt(3) != '_') {
+>                 throw new IllegalArgumentException(""Invalid locale format: "" + str);
+>             }
+>             return new Locale("""", str.substring(1, 3), str.substring(4));
+>         } else {
+127a148
+>         }",OA:One-action,OA location distance: 31,,,,,,,,,,,,,,,,,,,
+Lang_13b1,"238a239,240
+>         private static final Map<String, Class<?>> primitiveTypes =
+>                 new HashMap<String, Class<?>>();
+251a254,262
+>             primitiveTypes.put(""byte"", byte.class);
+>             primitiveTypes.put(""short"", short.class);
+>             primitiveTypes.put(""int"", int.class);
+>             primitiveTypes.put(""long"", long.class);
+>             primitiveTypes.put(""float"", float.class);
+>             primitiveTypes.put(""double"", double.class);
+>             primitiveTypes.put(""boolean"", boolean.class);
+>             primitiveTypes.put(""char"", char.class);
+>             primitiveTypes.put(""void"", void.class);
+267a279
+>                 try {
+268a281,287
+>                 } catch (ClassNotFoundException cnfe) {
+>                     Class<?> cls = primitiveTypes.get(name);
+>                     if (cls != null)
+>                         return cls;
+>                     else
+>                         throw cnfe;
+>                 }","DU:Def-and-use
+SU:Setup-and-use
+OA:One-action","The multi-hunk fix is created for getting the class type for a primitive type.
+ 
+The first two hunks are to set up a map saving the names of the primitive types and their classes. This map is further used in the catch block to handle primitive values (for getting their types).
+
+DU location distance: 29 (class field involved)
+SU location distance: 16 (class field involved)
+OA location distance: 1",,,,,,,,,,,,,,,,,,,
+Lang_23b1,"72a73
+>     private static final int HASH_SEED = 31;
+268a293,299
+>     @Override
+>     public int hashCode() {
+>         int result = super.hashCode();
+>         result = HASH_SEED * result + ObjectUtils.hashCode(registry);
+>         result = HASH_SEED * result + ObjectUtils.hashCode(toPattern);
+>         return result;
+>     }",DU:Def-and-use,"hashCode() is what's needed for a change. equals() is also changed but not necessary. Defensive coding.
+
+DU location distance: 196 (class field involved)",,,,,,,,,,,,,,,,,,,
+Lang_28b1,"62a63,67
+>             if(entityValue > 0xFFFF) {
+>                 char[] chrs = Character.toChars(entityValue);
+>                 out.write(chrs[0]);
+>                 out.write(chrs[1]);
+>             } else {
+63a69
+>             }",OA:One-action,OA location distance: 1,,,,,,,,,,,,,,,,,,,
+Lang_30b1,"1455c1455,1456
+<                     if (i < csLast && j < searchLast && ch >= Character.MIN_HIGH_SURROGATE && ch <= Character.MAX_HIGH_SURROGATE) {
+---
+>                     if (Character.isHighSurrogate(ch)) {
+>                         if (j == searchLast) {
+1457c1458,1460
+<                         if (searchChars[j + 1] == cs.charAt(i + 1)) {
+---
+>                             return true;
+>                         }
+>                         if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {",ONPF:Original-and-new-problem-fix,"<<<NEW>>>
+First fix is used to take care of a special case where searchChars only contains a high surrogate (so containsAny should return true because it is either equal to or a subsequence of the given charsequence).
+
+With the first fix made, the second fix (i<csLast) is needed to avoid a new problem (an index-of-bounds-exception).
+
+
+<<<OLD>>>
+For the original program, problem occurs when searchChars[i] == ch but i is no less than csLast (e.g., i is 0 and is equal to csLast), in which case, the code will return true, but should return false, because the charsequence can be a subsequence of searchChars.
+
+New code uses one hunk to create a fix that handles a special case where searchChars only contains a high surrogate (so containsAny should return true because it is either equal to or a subsequence of the given charsequence). Another hunk is used to handle the more general case to compare both high and low surrogates.
+
+",,,,,,,,,,,,,,,,,,,
+Lang_30b2,"1576c1576,1579
+<             if (searchChars.indexOf(ch) < 0) {
+---
+>             boolean chFound = searchChars.indexOf(ch) >= 0;
+>             if (i + 1 < strLen && Character.isHighSurrogate(ch)) {
+>                 char ch2 = str.charAt(i + 1);
+>                 if (chFound && searchChars.indexOf(ch2) < 0) {
+1578c1581,1586
+<             }
+---
+>                 }
+>             } else {
+>                 if (!chFound) {
+>                     return i;
+>                 }
+>              }",EOH:Essentially-one-hunk,"This is essentially a one-hunk fix where the first partial patch is used handle a special case where ch is supplementary.
+
+The two hunks of fixes are divided only by a trivial ``return i'' can be mergeable. If the first fix is applied only, the program doesn't compile. ",,,,,,,,,,,,,,,,,,,
+Lang_31b1,"1445a1446,1447
+>               int csLastIndex = csLength - 1;
+>               int searchLastIndex = searchLength - 1;
+1449a1452
+>                                       if (i < csLastIndex && j < searchLastIndex && ch >= Character.MIN_HIGH_SURROGATE && ch <= Character.MAX_HIGH_SURROGATE) {
+1450a1454,1457
+>                                               if (searchChars[j + 1] == cs.charAt(i + 1)) {
+>                                                       return true;
+>                                               }
+>                                       } else {
+1452a1460
+>                                       }","DU:Def-and-use
+OA:One-action","Fixes are created essentially to handle the case where supplementary chars exist.
+For supplementary chars, one needs to compare both high and low surrogate chars, not just one char.
+
+Note that hunks of 1449 and 1450 are separated by comments only.
+
+DU location distance: 4
+OA location distance: 3",,,,,,,,,,,,,,,,,,,
+Lang_34b1,"148c148
+<         return REGISTRY.get() != null ? REGISTRY.get() : Collections.<Object, Object>emptyMap();
+---
+>         return REGISTRY.get();
+164c164
+<         return m.containsKey(value);
+---
+>         return m != null && m.containsKey(value);",ONPF:Original-and-new-problem-fix,"The code is changed to allow null registry. Then another place, which uses the registry result, needs a null checker. This is a STANDARD case for new-problem-triggering fix.
+Fixing h1 can cause all of the original failing tests to pass but will also cause a set of new tests to fail.
+",,,,,,,,,,,,,,,,,,,
+Lang_41b1,"245c258
+<         if (className == null) {
+---
+>         if (className == null || className.length() == 0) {
+249a263,265
+>         while (className.charAt(0) == '[') {
+>             className = className.substring(1);
+>         }
+250a267,269
+>         if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') {
+>             className = className.substring(1);
+>         }","ONPF:Original-and-new-problem-fix
+EOH:Essentially-one-hunk","The target method is getPackageName. Given a class name, the method returns the package name. The fixes handle different issues: one to handle ZERO-length strings and the others to handle array/object type encoding.
+
+Note that the two last are essentially one hunk, as they are separated by comments.
+
+Also note that without the last two fixes performed, a classname with zero length will have a EMPTY package name, which means the first fix is unneeded. This is because the following code has i == -1 when className.length() is 0, and thus returns StringUtils.EMPTY. This implies the first fix is a new problem caused the others.
+
+int i = className.lastIndexOf(PACKAGE_SEPARATOR_CHAR);
+if (i == -1) {
+        return StringUtils.EMPTY;
+}",,,,,,,,,,,,,,,,,,,
+Lang_41b2,"190a191
+>         StringBuffer arrayPrefix = new StringBuffer();
+192a194,198
+>         if (className.startsWith(""["")) {
+>             while (className.charAt(0) == '[') {
+>                 className = className.substring(1);
+>                 arrayPrefix.append(""[]"");
+>             }
+193a200,203
+>             if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') {
+>                 className = className.substring(1, className.length() - 1);
+>             }
+>         }
+203c216
+<         return out;
+---
+>         return out + arrayPrefix;","EOH:Essentially-one-hunk
+DU:Def-and-use","The first three hunks (essentially one and only separated by comments) are used primarily to compute a prefix value, arrayPrefix, that handles array encoding and object type encoding and is later used to return as an update short class name.
+
+In addition, classname has also been updated (set up) for further use.
+
+Def-and-use is created for special-case handling (array encoding and object type encoding).
+
+DU location distance: 2",,,,,,,,,,,,,,,,,,,
+Lang_41b3,"191c191,192
+< 
+---
+>         StringBuffer arrayPrefix = new StringBuffer();
+>  
+193,195c194,208
+<             // Strip Object type encoding
+< 
+< 
+---
+>         if (className.startsWith(""["")) {
+>             while (className.charAt(0) == '[') {
+>                 className = className.substring(1);
+>                 arrayPrefix.append(""[]"");
+>             }
+>              // Strip Object type encoding
+>             if (className.charAt(0) == 'L' && className.charAt(className.length() - 1) == ';') {
+>                 className = className.substring(1, className.length() - 1);
+>             }
+>         }
+>  
+>         if (reverseAbbreviationMap.containsKey(className)) {
+>             className = reverseAbbreviationMap.get(className);
+>         }
+>  
+203c216
+<         return out;
+---
+>         return out + arrayPrefix;","EOH:Essentially-one-hunk
+DU:Def-and-use","Similar with Lang_41b2, some partial patches are due to the reason that there are comments in between.
+
+DU location distance: 2",,,,,,,,,,,,,,,,,,,
+Lang_62b1,"849a850,852
+>                             if (entityValue > 0xFFFF) {
+>                                 entityValue = -1;
+>                             }
+924a929,931
+>                                 if (entityValue > 0xFFFF) {
+>                                     entityValue = -1;
+>                                 }",RIF:Related-issue-fix,"A entity value is compared against 0xFFFF for validity checking. The same fix has been applied twice at different but related methods: one for directly unescaping the string (unescape(string)), the other for unescaping the string and then putting it in a writer (unescape(Writer, String)).
+
+The test case calls both the methods for testing. These hunks are isolated into one bug, although one may consider them as two different fixes.",,,,,,,,,,,,,,,,,,,
+Lang_62b2,"849a850,852
+>                             if (entityValue > 0xFFFF) {
+>                                 entityValue = -1;
+>                             }
+919a923
+>                                         break;
+924a929,931
+>                                 if (entityValue > 0xFFFF) {
+>                                     entityValue = -1;
+>                                 }","RIF:Related-issue-fix
+DIF:Different-issue-fix","The two checks comparing entityValue against 0xFFFF are, as explained in Lang_62b1, related-issue-fix.
+
+The two fixes (1) by adding a break and (2) by adding a entityValue check are created to address different problems, one to avoid a switch fall-through problem that assigns a wrong value to the updated entityValue; and the other to check against the maximum value (entityValue > 0xFFFF) to determine its validity.",,,,,,,,,,,,,,,,,,,
+Lang_65b1,"623a624,626
+>         if (field == Calendar.MILLISECOND) {
+>             return;
+>         }
+630a634,636
+>         Date date = val.getTime();
+>         long time = date.getTime();
+>         boolean done = false;
+632a639,645
+>         int millisecs = val.get(Calendar.MILLISECOND);
+>         if (!round || millisecs < 500) {
+>             time = time - millisecs;
+>             if (field == Calendar.SECOND) {
+>                 done = true;
+>             }
+>         }
+...
+...
+638a663,666
+>         if (date.getTime() != time) {
+>             date.setTime(time);
+>             val.setTime(date);
+>         }
+708a737
+>             if (offset != 0) {
+709a739
+>             }","EOH:Essentially-one-hunk
+FU:Fix-and-undo","The hunks except the last one are really just one big hunk, as they are separated by comments.
+The first big fix (hunk) is created only to handle the main part, i.e., truncate the date.
+The second fix (hunk) is mainly for cleanup. It is used to undo setting the calendar field, as this has already been done by the first fix.
+
+NOTE: Lang_65b1/b2/b3 have different parts missing in the first big merged hunk. The types of fixes are however the same.",,,,,,,,,,,,,,,,,,,
+Lang_65b2,"623a624,626
+>         if (field == Calendar.MILLISECOND) {
+>             return;
+>         }
+630a634,636
+>         Date date = val.getTime();
+>         long time = date.getTime();
+>         boolean done = false;
+632a639,645
+>         int millisecs = val.get(Calendar.MILLISECOND);
+>         if (!round || millisecs < 500) {
+>             time = time - millisecs;
+>             if (field == Calendar.SECOND) {
+>                 done = true;
+>             }
+>         }
+...
+...
+638a663,666
+>         if (date.getTime() != time) {
+>             date.setTime(time);
+>             val.setTime(date);
+>         }
+708a737
+>             if (offset != 0) {
+709a739
+>             }","EOH:Essentially-one-hunk
+FU:Fix-and-undo","The hunks except the last one are really just one big hunk, as they are separated by comments.
+The first big fix (hunk) is created only to handle the main part, i.e., truncate the date.
+The second fix (hunk) is mainly for cleanup. It is used to undo setting the calendar field, as this has already been done by the first fix.
+
+NOTE: Lang_65b1/b2/b3 have different parts missing in the first big merged hunk. The types of fixes are however the same.",,,,,,,,,,,,,,,,,,,
+Lang_65b3,"623a624,626
+>         if (field == Calendar.MILLISECOND) {
+>             return;
+>         }
+630a634,636
+>         Date date = val.getTime();
+>         long time = date.getTime();
+>         boolean done = false;
+632a639,645
+>         int millisecs = val.get(Calendar.MILLISECOND);
+>         if (!round || millisecs < 500) {
+>             time = time - millisecs;
+>             if (field == Calendar.SECOND) {
+>                 done = true;
+>             }
+>         }
+...
+...
+638a663,666
+>         if (date.getTime() != time) {
+>             date.setTime(time);
+>             val.setTime(date);
+>         }
+708a737
+>             if (offset != 0) {
+709a739
+>             }","EOH:Essentially-one-hunk
+FU:Fix-and-undo","The hunks except the last one are really just one big hunk, as they are separated by comments.
+The first big fix (hunk) is created only to handle the main part, i.e., truncate the date.
+The second fix (hunk) is mainly for cleanup. It is used to undo setting the calendar field, as this has already been done by the first fix.
+
+NOTE: Lang_65b1/b2/b3 have different parts missing in the first big merged hunk. The types of fixes are however the same.",,,,,,,,,,,,,,,,,,,
+Math_12b1,"18a19
+> import java.io.Serializable;
+29c30,31
+<     implements RandomGenerator {
+---
+>     implements RandomGenerator,
+>                Serializable {",DU:Def-and-use,DU location distance: 9 (import involved),,,,,,,,,,,,,,,,,,,
+Math_17b1,"1602a1603
+>         if (x >= 0 && x < RADIX) {
+1603a1605,1607
+>         } else {
+>             return multiply(newInstance(x));
+>         }",OA:One-action,"Essentially a single-hunk fix
+Partial fixes raise compiler errors
+This may be considered as one repair action
+
+OA location distance: 1",,,,,,,,,,,,,,,,,,,
+Math_37b1,"1063c1069
+ < if (isNaN) {
+ ---
+ > if (isNaN || Double.isInfinite(imaginary)) {
+ 1064a1071,1076
+ > }
+ > if (real > 20.0) {
+ > return createComplex(1.0, 0.0);
+ > }
+ > if (real < -20.0) {
+ > return createComplex(-1.0, 0.0);",ONPF:Original-and-new-problem-fix,"The 2nd fix is needed to handle this case where the real part of a complex number is too large.
+
+1st fix deals with a new problem raised by the 2nd fix. That is, with 2nd fix made, a complex number (inf, inf) is incorrectly computed as (1.0, 0.0), but should be NaN. To address this, 1st fix checks the imaginary part and returns NaN, when necessary.
+
+Note that, without the 2nd fix, 1st fix is not needed. This is because the computation (done at the end of the target method) can lead to the generation of a NaN.",,,,,,,,,,,,,,,,,,,
+Math_37b2,"1018c1018
+ < if (isNaN) {
+ ---
+ > if (isNaN || Double.isInfinite(real)) {
+ 1020a1021,1026
+ > if (imaginary > 20.0) {
+ > return createComplex(0.0, 1.0);
+ > }
+ > if (imaginary < -20.0) {
+ > return createComplex(0.0, -1.0);
+ > }",ONPF:Original-and-new-problem-fix,Same as Math_37b1.,,,,,,,,,,,,,,,,,,,
+Math_55b1,"458a459,463
+>       final double n1 = v1.getNormSq();
+>       final double n2 = v2.getNormSq();
+>       if ((n1 * n2) < MathUtils.SAFE_MIN) {
+>           return ZERO;
+>       }
+461a467,473
+>       final int deltaExp = (FastMath.getExponent(n1) - FastMath.getExponent(n2)) / 4;
+>       final double x1    = FastMath.scalb(v1.x, -deltaExp);
+>       final double y1    = FastMath.scalb(v1.y, -deltaExp);
+>       final double z1    = FastMath.scalb(v1.z, -deltaExp);
+>       final double x2    = FastMath.scalb(v2.x,  deltaExp);
+>       final double y2    = FastMath.scalb(v2.y,  deltaExp);
+>       final double z2    = FastMath.scalb(v2.z,  deltaExp);
+469a482,483
+>       final double ratio = (x1 * x2 + y1 * y2 + z1 * z2) / FastMath.scalb(n2, 2 * deltaExp);
+>       final double rho   = FastMath.rint(256 * ratio) / 256;
+470a485,487
+>       final double x3 = x1 - rho * x2;
+>       final double y3 = y1 - rho * y2;
+>       final double z3 = z1 - rho * z2;
+473c490
+<       return new Vector3D(v1.y * v2.z - v1.z * v2.y, v1.z * v2.x - v1.x * v2.z, v1.x * v2.y - v1.\
+y * v2.x);
+---
+>       return new Vector3D(y3 * z2 - z3 * y2, z3 * x2 - x3 * z2, x3 * y2 - y3 * x2);",EOH:Essentially-one-hunk,Hunks are separated by comments only.,,,,,,,,,,,,,,,,,,,
+Math_88b1,"328a329
+>         Set<Integer> basicRows = new HashSet<Integer>();
+330a332
+>             if (basicRows.contains(basicRow)) {
+332a335,337
+>                 coefficients[i] = 0;
+>             } else {
+>                 basicRows.add(basicRow);
+336,341d340 [DELETE]
+<             if (basicRow != null) {
+<                 for (int j = getNumObjectiveFunctions(); j < getNumObjectiveFunctions() + i; j++) {
+<                     if (tableau.getEntry(basicRow, j) == 1) {
+<                          coefficients[i] = 0;
+<                     }
+<                 }","DU:Def-and-use
+FU:Fix-and-undo","The last fix is basically a cleanup -- if setting coefficient=0 is done with the fix made at 330 (using basicRows to check whether basicRow is contained), then part deleted by the last fix, which seems to do a redundant job needs an undo.
+
+The 2nd (and 3rd) fix is the key move. As noted in the code comments, if multiple variables can take a given value, then we choose the first and set the rest equal to 0.
+
+I don't quite understand the semantics though.
+
+ADDITIONAL OBSERVATION: H4 (last fix) can cause all previous failing tests to pass but one passing test (testLargeModel) to fail.
+
+DU location distance: 2",,,,,,,,,,,,,,,,,,,
+Math_93b1,"345,346c345,348
+<         long result = Math.round(factorialDouble(n));
+<         if (result == Long.MAX_VALUE) {
+---
+>         if (n < 0) {
+>             throw new IllegalArgumentException(""must have n >= 0 for n!"");
+>         }
+>         if (n > 20) {
+376a379,381
+>         if (n < 21) {
+>             return factorial(n);
+>         }",RIF:Related-issue-fix,"Special-case checks are added for high-level (factorialDouble) and low-level (factorial) methods
+
+For high-level method (factorialDouble), an if-statement is used to check whether n is less than 21, and if so, it calls the low-level method (factorial),  which further checks if n is less than 0 or more than 20 (too big for factorial).
+
+Related-issue-fix: Related-call-fix.",,,,,,,,,,,,,,,,,,,
+Math_95b1,"144c144
+<         double ret;
+---
+>         double ret = 1.0;
+145a146
+>         if (d > 2.0) {
+147a149
+>         }",ONPF:Original-and-new-problem-fix,"The bug arises from computing the initial domain for inverse probability distribution.
+
+Fixing the problem (by adding d>2.0) triggers new problem (without defining ret and raises compiler error).",,,,,,,,,,,,,,,,,,,
+Math_100b1,"166c166
+<         final int cols = problem.getAllParameters().length;
+---
+>         final int cols = problem.getUnboundParameters().length;
+202c202
+<         int p = problem.getAllParameters().length;
+---
+>         int p = problem.getUnboundParameters().length;
+207c207
+<         double[] errors = new double[problem.getAllParameters().length];
+---
+>         double[] errors = new double[problem.getUnboundParameters().length];",RIF:Related-issue-fix,All by changing getUnboundParameters into getAllParameters,,,,,,,,,,,,,,,,,,,
+Math_102b1,"73a74,85
+>         double sumExpected = 0d;
+>         double sumObserved = 0d;
+>         for (int i = 0; i < observed.length; i++) {
+>             sumExpected += expected[i];
+>             sumObserved += observed[i];
+>         }
+>         double ratio = 1.0d;
+>         boolean rescale = false;
+>         if (Math.abs(sumExpected - sumObserved) > 10E-6) {
+>             ratio = sumObserved / sumExpected;
+>             rescale = true;
+>         }
+76a89,92
+>             if (rescale) {
+>                 dev = ((double) observed[i] - ratio * expected[i]);
+>                 sumSq += dev * dev / (ratio * expected[i]);
+>             } else {
+78a95
+>             }","DU:Def-and-use
+SU:Setup-and-use
+OA:One-action","For computing chi square, new variables ratio and rescale are introduced by the 1st fix. Then the 2nd fix involves using these variables for computing values with rescaling enabled.
+
+DU location distance: 3
+SU location distance: 3
+OA location distance: 2
+",,,,,,,,,,,,,,,,,,,
+Math_103b1,"108a109
+>         try {
+110a112,120
+>         } catch (MaxIterationsExceededException ex) {
+>             if (x < (mean - 20 * standardDeviation)) { // JDK 1.5 blows at 38
+>                 return 0.0d;
+>             } else if (x > (mean + 20 * standardDeviation)) {
+>                 return 1.0d;
+>             } else {
+>                 throw ex;
+>             }
+>         }",OA: One-action,OA location distance: 2,,,,,,,,,,,,,,,,,,,
+Closure_22b1,"101,104c101
+<     if (parent.getType() == Token.COMMA) {
+<       Node gramps = parent.getParent();
+<       if (gramps.isCall() && parent == gramps.getFirstChild()) {
+<         if (n == parent.getFirstChild() && parent.getChildCount() == 2 && n.getNext().isName() &&\
+ ""eval"".equals(n.getNext().getString())) {
+---
+>     if (n.isExprResult() || n.isBlock()) {
+106d102
+<         }
+111,125c107
+<       if (n == parent.getLastChild()) {
+<         for (Node an : parent.getAncestors()) {
+<           int ancestorType = an.getType();
+<           if (ancestorType == Token.COMMA)
+<             continue;
+<           if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK)
+<             return;
+<           else
+<             break;
+<         }
+<       }
+<     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {
+<       if (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirstCh\
+ild() ||
+<            n == parent.getFirstChild().getNext().getNext())) {
+<       } else {
+---
+>     if (n.isQualifiedName() && n.getJSDocInfo() != null) {
+127d108
+<       }",EOH:Essentially-one-hunk,"The fixes are created to avoid removing a block or an expr result. This is because they have already handled these cases when we visit the child, and the peephole passes will fix up the tree in more clever ways when these are removed.
+
+Hunks are separated by comments.",,,,,,,,,,,,,,,,,,,
+Closure_25b1,"1035a1036
+>     scope = traverseChildren(n, scope);
+1054a1055
+>           backwardsInferenceFromCallSite(n, ct);
+",SU:Setup-and-use,"It's hard to understand the code. The bug arises from doing type inference for creating a new instance in Javascript, in this case ""new F(y);"". As far as I can tell, the first hunk is used to do a traversal to identify types of ""F"" and ""y"". Then the second hunk, based on the correct traversal result, can do the right backward inference, from which the type of F(..) is identified.
+So I would say that in this case the first hunk is used to do the right setup, which the backward inference relies on to work correctly.
+So I consider the first hunk as half-way no effect and the second as half-way regression since without the right setup the backward inference can be incorrect.
+
+SU location distance: 19",,,,,,,,,,,,,,,,,,,
+Closure_41b1,"291a292,294
+>       while (oldParams.hasNext()) {
+>         paramBuilder.newParameterFromNode(oldParams.next());
+>       }
+482a486,491
+>     if (!isVarArgs) {
+>       while (oldParameterType != null && !isVarArgs) {
+>         builder.newParameterFromNode(oldParameterType);
+>         oldParameterType = oldParameterType.getNext();
+>       }
+>     }",RIF:Related-issue-fix,"Both hunks are used to handle copying old parameters for inferring parameter types. The fixes are thus similar.
+
+As explained by the comment, fixes are used to ""Clone any remaining params that aren't in the function literal."" and ""Copy over any old parameters that aren't in the param list."" (though I don't understand what it means).",,,,,,,,,,,,,,,,,,,
+Closure_56b1,"241a242
+>       if (pos >= js.length()) {
+242a244,246
+>       } else {
+>         return js.substring(pos, js.length());
+>       }",OA:One-action,OA location distance: 1,,,,,,,,,,,,,,,,,,,
+Closure_85b1,"183c170
+<           Node fallThrough = tryRemoveUnconditionalBranching(computeFollowing(n));
+---
+>           Node fallThrough = computeFollowing(n);
+195a183,189
+>     while (next != null && next.getType() == Token.BLOCK) {
+>       if (next.hasChildren()) {
+>         next = next.getFirstChild();
+>       } else {
+>         next = computeFollowing(next);
+>       }
+>     }",FU:Fix-and-undo,"It seems adding the while loop can peel off the block structure and and recursively calling tryRemoveUnconditionalBranching should be undone.
+
+Second hunk is the fix part, and first hunk is the undo.",,,,,,,,,,,,,,,,,,,
+Closure_98b1,"360a361,368
+>       for (BasicBlock block = ref.getBasicBlock();
+>            block != null; block = block.getParent()) {
+>         if (block.isFunction) {
+>           break;
+>         } else if (block.isLoop) {
+>           return false;
+>         }
+>       }
+544a553
+>     private final boolean isFunction;
+548a558
+>     private final boolean isLoop;
+560a571
+>       this.isFunction = root.getType() == Token.FUNCTION;
+561a573,580
+>       if (root.getParent() != null) {
+>         int pType = root.getParent().getType();
+>         this.isLoop = pType == Token.DO ||
+>             pType == Token.WHILE ||
+>             pType == Token.FOR;
+>       } else {
+>         this.isLoop = false;
+>       }","DU:Def-and-use
+SU:Setup-and-use","Fix is done by first defining isFunction (544) and isLoop (548) and further doing some setup work (560 & 561) for them.
+
+The definition and setup for isFunction and isLoop are used to create a fix to ensure that, in isAssignedOnceinLifeTime method, assignment is performed only once and not performed in a loop.
+
+DU location distance: 16 (class field involved)
+SU location distance: 200",,,,,,,,,,,,,,,,,,,
+Closure_100b2,"98a99,105
+>       int pType = parent.getType();
+>       if (!(pType == Token.BLOCK ||
+>             pType == Token.SCRIPT ||
+>             pType == Token.NAME ||
+>             pType == Token.ASSIGN)) {
+>         return false;
+>       }
+146c153
+<     return false;
+---
+>     return parent != null && NodeUtil.isGet(parent);",DIF:Different-issue-fix,"First fix is to avoid traversing functions of certain types for finding unsafe uses of this referencing global objects.
+
+Second fix is to report THIS with a property access.
+
+These fixes seem to handle different issues that are both related to the final goal finding, which is handling this referencing global objects.",,,,,,,,,,,,,,,,,,,
+Closure_124b1,"212a213
+>     while (node.isGetProp()) {
+213a215
+>     }",OA:One-action,OA location distance: 1,,,,,,,,,,,,,,,,,,,
+Closure_149b1,"diff -r Closure_149_buggy/src/com/google/javascript/jscomp/AbstractCommandLineRunner.java Closure_149_fixed/src/com/google/javascript/jscomp/AbstractCommandLineRunner.java
+158a159
+>     options.outputCharset = getOutputCharset();
+518,522d518
+<     if (inputCharset == Charsets.UTF_8) {
+<       options.outputCharset = Charsets.US_ASCII;
+<     } else {
+<       options.outputCharset = inputCharset;
+<     }
+692a689,698
+>   private String getOutputCharset() throws FlagUsageException {
+>     if (!config.charset.isEmpty()) {
+>       if (!Charset.isSupported(config.charset)) {
+>         throw new FlagUsageException(config.charset +
+>             "" is not a valid charset name."");
+>       }
+>       return config.charset;
+>     }
+>     return ""US-ASCII"";
+>   }
+diff -r Closure_149_buggy/src/com/google/javascript/jscomp/Compiler.java Closure_149_fixed/src/com/google/javascript/jscomp/Compiler.java
+1362c1362,1363
+<     Charset charset = options.outputCharset;
+---
+>     Charset charset = options.outputCharset != null ?
+>         Charset.forName(options.outputCharset) : null;
+diff -r Closure_149_buggy/src/com/google/javascript/jscomp/CompilerOptions.java Closure_149_fixed/src/com/google/javascript/jscomp/CompilerOptions.java
+588c588
+<   public Charset outputCharset;
+---
+>   String outputCharset;","DU:Def-and-use
+FU:Fix-and-undo
+ONPF:Original-and-new-problem-fix","Second fix is defining a new method. This method is used to set the outputCharset option (options.outputCharset = getOutputCharset()). With this option set, the additional if-statement (line 518) is uneeded (the UNDO part).
+
+Fixes done in the file AbstractCommandLineRunner.java are used to set running options. The target method where fixes are applied is called setRunOptions(...).
+
+It might be the case that by defining getOutputCharset(), it's necessary to define outputCharset as a String type, which in turn requires the fix done at 1362, which performs Charset.forName to return a corresponding Charset type for a String. With this, there is the original-and-new-problem-fix relationship.
+
+DU location distance: 534 (definition and use of getOutputCharset method) and across-file (definition and use of outputCharset)
+
+Method and class field involved.
+",,,,,,,,,,,,,,,,,,,
+Closure_173b2,"101a102,108
+>       case Token.MUL:
+>       case Token.AND:
+>       case Token.OR:
+>       case Token.BITOR:
+>       case Token.BITXOR:
+>       case Token.BITAND:
+>         return tryRotateAssociativeOperator(node);
+107a115,135
+>   private Node tryRotateAssociativeOperator(Node n) {
+>     if (!late) {
+>       return n;
+>     }
+>     Preconditions.checkArgument(NodeUtil.isAssociative(n.getType()));
+>     Node rhs = n.getLastChild();
+>     if (n.getType() == rhs.getType()) {
+>       Node parent = n.getParent();
+>       Node first = n.getFirstChild().detachFromParent();
+>       Node second = rhs.getFirstChild().detachFromParent();
+>       Node third = rhs.getLastChild().detachFromParent();
+>       Node newLhs = new Node(n.getType(), first, second)
+>           .copyInformationFrom(n);
+>       Node newRoot = new Node(rhs.getType(), newLhs, third)
+>           .copyInformationFrom(rhs);
+>       parent.replaceChild(n, newRoot);
+>       reportCodeChange();
+>       return newRoot;
+>     }
+>     return n;
+>   }
+",DU:Def-and-use,"Define a new method and use it to create a fix.
+
+DU location distance: 6 (method involved)",,,,,,,,,,,,,,,,,,,
+Mockito_2b1,"2a3
+> import org.mockito.exceptions.Reporter;
+9a11
+>         validateInput(durationMillis);
+27a30,34
+>     private void validateInput(long durationMillis) {
+>         if (durationMillis < 0) {
+>             new Reporter().cannotCreateTimerWithNegativeDurationTime(durationMillis);
+>         }
+>     }",DU:Def-and-use,"Has to do the right order to avoid compiler errors. These can be refactored as a single-hunk fix (with the package and method inlined).
+
+DU location distance: 25 (import involved)",,,,,,,,,,,,,,,,,,,
+Mockito_9b1,"7a8
+> import java.lang.reflect.Modifier;
+8a10
+> import org.mockito.internal.stubbing.defaultanswers.GloballyConfiguredAnswer;
+35a38,40
+>       if (Modifier.isAbstract(invocation.getMethod().getModifiers())) {
+>               return new GloballyConfiguredAnswer().answer(invocation);
+>       }",DU:Def-and-use,"Has to do the right order to avoid compiler errors. These can be refactored as a single-hunk fix.
+
+DU location distance: 28 (import involved)",,,,,,,,,,,,,,,,,,,
+Mockito_11b1,"54a55,61
+>         if (this == o) {
+>             return true;
+>         }
+>         if (o instanceof DelegatingMethod) {
+>             DelegatingMethod that = (DelegatingMethod) o;
+>             return method.equals(that.method);
+>         } else {
+55a63
+>         }
+60c68
+<         return 1;
+---
+>         return method.hashCode();","OA:One-action
+RIF:Related-issue-fix","One fix is done for equals and the other is for hashCode. 
+
+For DelegatingMethod, checking equals and computing hash code have to be based on the method field (the delegated method).
+
+OA location distance: 1",,,,,,,,,,,,,,,,,,,
+Mockito_12b1,"19a20
+>             if (actual instanceof Class) {^M
+20a22
+>             } else if (actual instanceof ParameterizedType) {^M
+21a24,25
+>                 return (Class) ((ParameterizedType) actual).getRawType();^M
+>             }^M",OA:One-action,"Essentially one-wrap fix. The last two fixes are divided by comments
+
+OA location distance: 1",,,,,,,,,,,,,,,,,,,
+Mockito_15b1,"3a4
+> import org.mockito.internal.util.reflection.BeanPropertySetter;^M
+24a26
+>                         if (!new BeanPropertySetter(fieldInstance, field).set(matchingMock)) {^M
+25a28
+>                         }^M","DU:Def-and-use
+OA:One-action","Fixes at lines 24 and 26 are one-action.
+
+DU location distance: 21 (import involved)
+OA location distance: 1",,,,,,,,,,,,,,,,,,,
+Mockito_16b1,"827c827
+<         return MOCKITO_CORE.mock(classToMock, mockSettings);^M
+---
+>         return MOCKITO_CORE.mock(classToMock, mockSettings, true);^M
+899c899
+<                 .defaultAnswer(CALLS_REAL_METHODS)); ^M
+---
+>                 .defaultAnswer(CALLS_REAL_METHODS), true); ^M
+diff -r Mockito_16_buggy/src/org/mockito/internal/MockitoCore.java Mockito_16_fixed/src/org/mockito\
+/internal/MockitoCore.java
+32,33c32
+<     public <T> T mock(Class<T> classToMock, MockSettings mockSettings, boolean shouldResetOngoing\
+Stubbing) { return mock(classToMock, mockSettings); }^M
+<     public <T> T mock(Class<T> classToMock, MockSettings mockSettings) {^M
+---
+>     public <T> T mock(Class<T> classToMock, MockSettings mockSettings, boolean shouldResetOngoing\
+Stubbing) {^M
+34a34
+>         if (shouldResetOngoingStubbing) {^M
+35a36
+>         }^M","DU:Def-and-use
+OA:One-action","A method that takes as input two parameters is not used anymore and the newly introduced parameter is used to create a fix (def). In two other places, the calls are changed accordingly (to have a new parameter).
+
+""if (shouldResetOngoingStubbing) {}"" is a one-action fix.
+
+DU location distance: 2 (definition and use of shouldResetStubbing) and across-file (definition and use of mock method) Across-file is related to method definition and use.",,,,,,,,,,,,,,,,,,,
+Mockito_17b1,"diff -r Mockito_17_buggy/src/org/mockito/internal/creation/MockSettingsImpl.java Mockito_17_fixed/src/org/mockito/internal/creation/MockSettingsImpl.java
+19a20
+>     private boolean serializable;^M
+22c23,24
+<         return this.extraInterfaces(java.io.Serializable.class);^M
+---
+>         this.serializable = true;^M
+>         return this;^M
+74c76
+<         return extraInterfaces != null && java.util.Arrays.asList(extraInterfaces).contains(java.io.Serializable.class);^M
+---
+>         return serializable;^M
+diff -r Mockito_17_buggy/src/org/mockito/internal/util/MockUtil.java Mockito_17_fixed/src/org/mockito/internal/util/MockUtil.java
+18a19
+> import java.io.Serializable;^M
+44a46,48
+>         if (settings.isSerializable()) {^M
+>             ancillaryTypes = interfaces == null ? new Class<?>[] {Serializable.class} : new ArrayUtils().concat(interfaces, Serializable.class);^M
+>         } else {^M
+45a50
+>         }^M","OA:One-action
+DU:Def-and-use
+RIF:Related-issue-fix","One needs a serializable check for making mocks (fix for MockUtil). The way of checking serializable (isSerializable) is however not correct. To fix that, one needs to fix isSerializable() and serializable().
+
+Last fix is created to consider the special case where settings is serializable.
+
+Fixes made in MockSettingsImpl are done to handle serializable issues. Both isSerializable() and serializable() are updated to use the serializable flag for check.
+
+DU location distance: 3 (serializable) and 26 (Serializable class). Class field and import involved.
+OA location distance: 1",,,,,,,,,,,,,,,,,,,
+Mockito_21b1,"17c17
+<         return withOuterClass(cls);
+---
+>         return withParams(cls, outerClassInstance);
+20c20
+<     private <T> T withOuterClass(Class<T> cls) {
+---
+>     private static <T> T withParams(Class<T> cls, Object... params) {
+24,25c24,29
+<             Constructor<T> c = cls.getDeclaredConstructor(outerClassInstance.getClass());
+<             return c.newInstance(outerClassInstance);
+---
+>             for (Constructor<?> constructor : cls.getDeclaredConstructors()) {
+>                 Class<?>[] types = constructor.getParameterTypes();
+>                 if (paramsMatch(types, params)) {
+>                     return (T) constructor.newInstance(params);
+>                 }
+>             }
+28a33
+>         throw paramsException(cls, null);
+35a41,51
+>     private static boolean paramsMatch(Class<?>[] types, Object[] params) {
+>         if (params.length != types.length) {
+>             return false;
+>         }
+>         for (int i = 0; i < params.length; i++) {
+>             if (!types[i].isInstance(params[i])) {
+>                 return false;
+>             }
+>         }
+>         return true;
+>     }
+",DU:Def-and-use,"Definitions are changed and so the callers need to change accordingly
+
+DU location distance: 4 (params), 3 (withParams method), 11 (paramsMatch method)
+
+withParams and paramsMatch are related to new method definition and use.",,,,,,,,,,,,,,,,,,,
+Mockito_30b1,"438c438
+<     public void smartNullPointerException(Location location) {
+---
+>     public void smartNullPointerException(Object obj, Location location) {
+441a442
+>                 obj,
+diff -r Mockito_30_buggy/src/org/mockito/internal/stubbing/defaultanswers/ReturnsSmartNulls.java Mo\
+ckito_30_fixed/src/org/mockito/internal/stubbing/defaultanswers/ReturnsSmartNulls.java
+56c56
+<             new Reporter().smartNullPointerException(location);^M
+---
+>             new Reporter().smartNullPointerException(obj, location);^M",DU:Def-and-use,"The definition of a method is changed, so the caller needs to change accordingly
+
+DU location distance: 3 (obj) and across file (smartNullPointerException method). Across file is related to new method definition and use.",,,,,,,,,,,,,,,,,,,
+Mockito_36b1,"10a11
+> import org.mockito.exceptions.Reporter;
+201a203,205
+>         if (this.getMethod().getDeclaringClass().isInterface()) {
+>             new Reporter().cannotCallRealMethodOnInterface();
+>         }",DU:Def-and-use,DU location distance: 191 (import involved),,,,,,,,,,,,,,,,,,,
+Time_3b1,"638a639
+>         if (amount != 0) {
+639a641
+>         }",OA:One-action,OA location distance: 1,,,,,,,,,,,,,,,,,,,
+Time_3b2,"659a662
+>         if (years != 0) {
+660a664
+>         }",OA:One-action,OA location distance: 1,,,,,,,,,,,,,,,,,,,
+Time_3b3,"701a708
+>         if (months != 0) {
+702a710
+>         }",OA:One-action,OA location distance: 1,,,,,,,,,,,,,,,,,,,
+Time_3b4,"722a731
+>         if (weeks != 0) {
+723a733
+>         }",OA:One-action,OA location distance: 1,,,,,,,,,,,,,,,,,,,
+Time_3b5,"763a774
+>         if (days != 0) {
+764a776
+>         }",OA:One-action,OA location distance: 1,,,,,,,,,,,,,,,,,,,
+Time_5b1,"1628,1631c1628,1632
+<             years = FieldUtils.safeAdd(years, months / 12);
+<             months = months % 12;
+<             if (years != 0) {
+<                 result = result.withYears(years);
+---
+>             long totalMonths = years * 12L + months;
+>             if (type.isSupported(DurationFieldType.YEARS_TYPE)) {
+>                 int normalizedYears = FieldUtils.safeToInt(totalMonths / 12);
+>                 result = result.withYears(normalizedYears);
+>                 totalMonths = totalMonths - (normalizedYears * 12);
+1633,1634c1634,1640
+<             if (months != 0) {
+<                 result = result.withMonths(months);
+---
+>             if (type.isSupported(DurationFieldType.MONTHS_TYPE)) {
+>                 int normalizedMonths = FieldUtils.safeToInt(totalMonths);
+>                 result = result.withMonths(normalizedMonths);
+>                 totalMonths = totalMonths - normalizedMonths;
+>             }
+>             if (totalMonths != 0) {
+>                 throw new UnsupportedOperationException(""Unable to normalize as PeriodType is missing either years or months but period has a month/year amount: "" + toString());",RIF:Related-issue-fix,One fix is for year and the other is for month. It's weird why diff considers it as a two-hunk fix,,,,,,,,,,,,,,,,,,,
+Time_7b1,"707a708
+>         int defaultYear = DateTimeUtils.getChronology(chrono).year().get(instantMillis);
+710d710
+<         int defaultYear = chrono.year().get(instantLocal);",FU:Fix-and-undo,"First fix changes things by using the previous value of chrono and instantMillis for computing defaultYear.
+
+Second fix is an undo operation.",,,,,,,,,,,,,,,,,,,
+Time_8b1,"279c279
+<         if (minutesOffset < 0 || minutesOffset > 59) {
+---
+>         if (minutesOffset < -59 || minutesOffset > 59) {
+281a282,284
+>         if (hoursOffset > 0 && minutesOffset < 0) {
+>             throw new IllegalArgumentException(""Positive hours must not have negative minutes: "" + minutesOffset);
+>         }",ONPF:Original-and-new-problem-fix,"After negative minutesOffset being allowed, the original problem is fixed. However, it raises another problem when hoursOffset is positive and minutesOffset is negative. This is handled by the second fix.",,,,,,,,,,,,,,,,,,,
+Time_8b2,"279c279
+<         if (minutesOffset < 0 || minutesOffset > 59) {
+---
+>         if (minutesOffset < -59 || minutesOffset > 59) {
+281a282,284
+>         if (hoursOffset > 0 && minutesOffset < 0) {
+>             throw new IllegalArgumentException(""Positive hours must not have negative minutes: "" + minutesOffset);
+>         }
+286c289
+<                 minutesOffset = hoursInMinutes - minutesOffset;
+---
+>                 minutesOffset = hoursInMinutes - Math.abs(minutesOffset);",ONPF:Original-and-new-problem-fix,The case is similar to that of Time_8b1.,,,,,,,,,,,,,,,,,,,
+Time_9b2,"95a96
+>     private static final int MAX_MILLIS = (86400 * 1000) - 1;
+281a286,288
+>         if (millisOffset < -MAX_MILLIS || millisOffset > MAX_MILLIS) {
+>             throw new IllegalArgumentException(""Millis out of range: "" + millisOffset);
+>         }",DU:Def-and-use,DU location distance: 186 (field involved),,,,,,,,,,,,,,,,,,,
+Time_12b1,"198a199
+>         int era = calendar.get(Calendar.ERA);
+201c202
+<             yearOfEra,
+---
+>             (era == GregorianCalendar.AD ? yearOfEra : 1 - yearOfEra),",DU:Def-and-use,"Before getting the year, one should check the era first. This is what the fix is about. The fix can be rewritten as one-hunk, but that harms readability.
+
+DU location distance: 3",,,,,,,,,,,,,,,,,,,
+Time_12b2,"209a210
+>         int era = calendar.get(Calendar.ERA);
+212c213
+<             yearOfEra,
+---
+>             (era == GregorianCalendar.AD ? yearOfEra : 1 - yearOfEra),",DU:Def-and-use,DU location distance: 3,,,,,,,,,,,,,,,,,,,
+Time_12b3,"198a199
+>         int era = calendar.get(Calendar.ERA);
+201c202
+<             yearOfEra,
+---
+>             (era == GregorianCalendar.AD ? yearOfEra : 1 - yearOfEra),
+235a237
+>         if (date.getTime() < 0) {
+236a239,242
+>             GregorianCalendar cal = new GregorianCalendar();
+>             cal.setTime(date);
+>             return fromCalendarFields(cal);
+>         }","DU:Def-and-use
+RIF:Related-issue-fix","The fix comes in two parts. One is adding a validity check for date (i.e., if (date.getTime()<0) {...}) and creates a LocalCalendarTime object in a high-level method (fixes done at line 235 and 236); The other is changing how values are computed in a low-level method (fixes done at 198 and 201) by considering the era value for computing year.
+
+Without doing the check first, low-level method has no way of being invoked.
+
+Related-issue-fix (related-call-fix): Fixes for high-level and low-level method
+
+DU location distance: 3",,,,,,,,,,,,,,,,,,,
+Time_12b4,"209a210
+>         int era = calendar.get(Calendar.ERA);
+212c213
+<             yearOfEra,
+---
+>             (era == GregorianCalendar.AD ? yearOfEra : 1 - yearOfEra),
+242a244
+>         if (date.getTime() < 0) {
+243a246,249
+>             GregorianCalendar cal = new GregorianCalendar();
+>             cal.setTime(date);
+>             return fromCalendarFields(cal);
+>         }","DU:Def-and-use
+RIF:Related-issue-fix","Similar to Time_12b3.
+
+DU location distance: 3",,,,,,,,,,,,,,,,,,,
+Time_13b1,"1132a1133
+>             int bufLen = buf.length();
+1141a1143,1145
+>                     if (valueLong < 0 && valueLong > -DateTimeConstants.MILLIS_PER_SECOND) {
+>                         buf.insert(bufLen, '-');
+>                     }",DU:Def-and-use,"It turns out that the first fix is not related to the failure.
+
+DU location distance: 9",,,,,,,,,,,,,,,,,,,
+Time_18b1,"363a364
+>         try {
+366a368,378
+>         } catch (IllegalFieldValueException ex) {
+>             if (monthOfYear != 2 || dayOfMonth != 29) {
+>                 throw ex;
+>             }
+>             instant = iGregorianChronology.getDateTimeMillis
+>                 (year, monthOfYear, 28,
+>                  hourOfDay, minuteOfHour, secondOfMinute, millisOfSecond);
+>             if (instant >= iCutoverMillis) {
+>                 throw ex;
+>             }
+>         }",OA:One-action,OA location distance: 3,,,,,,,,,,,,,,,,,,,
+Time_20b1,"2541a2542
+>             String best = null;
+2544,2545c2545,2547
+<                     bucket.setZone(DateTimeZone.forID(id));
+<                     return position + id.length();
+---
+>                       if (best == null || id.length() > best.length()) {
+>                               best = id;
+>                       }
+2546a2549,2552
+>             }
+>             if (best != null) {
+>                 bucket.setZone(DateTimeZone.forID(best));
+>                 return position + best.length();
+","DU:Def-and-use
+SU:Setup-and-use","The code is fixed to find the longest match. For the failure, the target string (str) is America/Dawson_creek. There are ids America/Dawson and America/Dawson_creek. Clearly, one wants to find the latter to match. Keeping track of the longest match is necessary.
+
+DU location distance: 3 and 5",,,,,,,,,,,,,,,,,,,
+Time_26b1,"diff -r Time_26_buggy/src/main/java/org/joda/time/DateTimeZone.java Time_26_fixed/src/main/java/org\
+/joda/time/DateTimeZone.java
+935a936,944
+>     public long convertLocalToUTC(long instantLocal, boolean strict, long originalInstantUTC) {
+>         int offsetOriginal = getOffset(originalInstantUTC);
+>         long instantUTC = instantLocal - offsetOriginal;
+>         int offsetLocalFromOriginal = getOffset(instantUTC);
+>         if (offsetLocalFromOriginal == offsetOriginal) {
+>             return instantUTC;
+>         }
+>         return convertLocalToUTC(instantLocal, strict);
+>     }
+diff -r Time_26_buggy/src/main/java/org/joda/time/chrono/ZonedChronology.java Time_26_fixed/src/mai\
+n/java/org/joda/time/chrono/ZonedChronology.java
+467c467
+<             long result = iZone.convertLocalToUTC(localInstant, false);
+---
+>             long result = iZone.convertLocalToUTC(localInstant, false, instant);",DU:Def-and-use,DU location distance: across file (method involved),,,,,,,,,,,,,,,,,,,
+

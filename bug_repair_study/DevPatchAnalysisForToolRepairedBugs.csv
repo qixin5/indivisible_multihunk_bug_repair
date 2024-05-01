@@ -1,0 +1,224 @@
+﻿Bug_id,Detailed Fix,Semantic Categorization,,,,,,,,,,,,,,,,,,,,
+Chart_4,"4492a4493
+>                 if (r != null) {^M
+4500a4502
+>                 }^M",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Chart_18b2,"318d317
+<         if (index < this.keys.size()) {
+320d318
+<         }",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Chart_26,"1191a1192
+>             if (owner != null) {^M
+1196a1198
+>             }^M",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Closure_2,"1571a1572
+>     if (implicitProto == null) {
+1573a1575,1576
+>       currentPropertyNames = ImmutableSet.of();
+>     } else {
+1574a1578
+>     }","OA:One-action
+EOH: Essentially-one-hunk",,,,,,,,,,,,,,,,,,,,
+Closure_6b1,"405,407d400
+<       if ((leftType.isConstructor() || leftType.isEnumType()) && (rightType.isConstructor() || ri\
+ghtType.isEnumType())) {
+<         registerMismatch(rightType, leftType, null);
+<       } else {
+409d401
+<       }",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Closure_6b2,"366,368d365
+<       if ((leftType.isConstructor() || leftType.isEnumType()) && (rightType.isConstructor() || ri\
+ghtType.isEnumType())) {
+<         registerMismatch(rightType, leftType, null);
+<       } else {
+385d381
+<       }",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Closure_7,"613c613
+<         return resultEqualsValue && ctorType.isSubtype(type) ? ctorType : null;
+---
+>         if (resultEqualsValue) {
+614a615,616
+>           return ctorType.getGreatestSubtype(type);
+>         } else {
+615a618,619
+>           return type.isSubtype(ctorType) ? null : type;
+>         }",EOH: Essentially-one-hunk,,,,,,,,,,,,,,,,,,,,
+Closure_19,"171a172
+>       case Token.THIS:
+172a174
+>         break;",EOH: Essentially-one-hunk,,,,,,,,,,,,,,,,,,,,
+Closure_21,"101c101
+<     if (n.isExprResult()) {
+---
+>     if (n.isExprResult() || n.isBlock()) {
+113,130c113
+<     if (parent.getType() == Token.COMMA) {
+<       if (isResultUsed) {
+<         return;
+<       }
+<       if (n == parent.getLastChild()) {
+<         for (Node an : parent.getAncestors()) {
+<           int ancestorType = an.getType();
+<           if (ancestorType == Token.COMMA) continue;
+<           if (ancestorType != Token.EXPR_RESULT && ancestorType != Token.BLOCK) return;
+<           else break;
+<         }
+<       }
+<     } else if (parent.getType() != Token.EXPR_RESULT && parent.getType() != Token.BLOCK) {
+<       if (! (parent.getType() == Token.FOR && parent.getChildCount() == 4 && (n == parent.getFirs\
+tChild() || n == parent.getFirstChild().getNext().getNext()))) {
+<         return;
+<       }
+<     }
+<     if (
+---
+>     if (!isResultUsed &&",FU:Fix-and-undo,,,,,,,,,,,,,,,,,,,,
+Closure_40,"635,636c635
+<           JsName name = getName(ns.name, false);
+<           if (name != null) {
+---
+>           JsName name = getName(ns.name, true);
+639d637
+<           }",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Closure_106b2,"189d188
+<     if (parseDocumentation) {
+191d189
+<     }",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Closure_138b1,"208d207
+<         if (paramType != null) {
+218d216
+<             }",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Closure_124,"212a213
+>     while (node.isGetProp()) {
+213a215
+>     }",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Lang_34,"148c148
+<         return REGISTRY.get() != null ? REGISTRY.get() : Collections.<Object, Object>emptyMap();
+---
+>         return REGISTRY.get();
+164c164
+<         return m.containsKey(value);
+---
+>         return m != null && m.containsKey(value);",ONPF:Original-and-new-problem-fix,,,,,,,,,,,,,,,,,,,,
+Lang_46,"86c86
+<         return escapeJavaStyleString(str, false);
+---
+>         return escapeJavaStyleString(str, false, false);
+102c102
+<         escapeJavaStyleString(out, str, false);
+---
+>         escapeJavaStyleString(out, str, false, false);
+127c127
+<         return escapeJavaStyleString(str, true);
+---
+>         return escapeJavaStyleString(str, true, true);
+143c143
+<         escapeJavaStyleString(out, str, true);
+---
+>         escapeJavaStyleString(out, str, true, true);
+154c154
+<     private static String escapeJavaStyleString(String str, boolean escapeSingleQuotes) {
+---
+>     private static String escapeJavaStyleString(String str, boolean escapeSingleQuotes, boolean e\
+scapeForwardSlash) {
+160c160
+<             escapeJavaStyleString(writer, str, escapeSingleQuotes);
+---
+>             escapeJavaStyleString(writer, str, escapeSingleQuotes, escapeForwardSlash);
+178c178,179
+<     private static void escapeJavaStyleString(Writer out, String str, boolean escapeSingleQuote) throws IOException {
+---
+>     private static void escapeJavaStyleString(Writer out, String str, boolean escapeSingleQuote,
+>             boolean escapeForwardSlash) throws IOException {
+243a245
+>                         if (escapeForwardSlash) {
+244a247
+>                         }
+",DU:Def-and-use,,,,,,,,,,,,,,,,,,,,
+Lang_53b3,"642a643
+>         }
+645d645
+<             }",EOH: Essentially-one-hunk,,,,,,,,,,,,,,,,,,,,
+Lang_55,"117a118
+>         if(this.runningState == STATE_RUNNING) {
+118a120
+>         }",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Math_3,"820a821
+>         if (len == 1) {
+821a823,824
+>             return a[0] * b[0];
+>         }",EOH: Essentially-one-hunk,,,,,,,,,,,,,,,,,,,,
+Math_13,"561a562,569
+>         if (m instanceof DiagonalMatrix) {
+>             final int dim = m.getRowDimension();
+>             final RealMatrix sqrtM = new DiagonalMatrix(dim);
+>             for (int i = 0; i < dim; i++) {
+>                sqrtM.setEntry(i, i, FastMath.sqrt(m.getEntry(i, i)));
+>             }
+>             return sqrtM;
+>         } else {
+563a572
+>         }",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Math_25,"322a323
+>                 if (c2 == 0) {
+324a326,327
+>                     throw new MathIllegalStateException(LocalizedFormats.ZERO_DENOMINATOR);
+>                 }",EOH: Essentially-one-hunk,,,,,,,,,,,,,,,,,,,,
+Math_46,"260c260
+<             return isZero ? NaN : INF;
+---
+>             return NaN;
+297c297
+<             return isZero ? NaN : INF;
+---
+>             return NaN;","RIF:Related-issue-fix
+ONPF:Original-and-new-problem-fix",,,,,,,,,,,,,,,,,,,,
+Math_89,"109a110
+>         if (v instanceof Comparable<?>){
+110a112,114
+>         } else {
+>             throw new IllegalArgumentException(""Object must implement Comparable"");
+>         }",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Math_90,"109a110,111
+>         addValue((Comparable<?>) v);
+>     }
+120a123
+>     public void addValue(Comparable<?>v){",EOH: Essentially-one-hunk,,,,,,,,,,,,,,,,,,,,
+Mockito_16,"827c827
+<         return MOCKITO_CORE.mock(classToMock, mockSettings);^M
+---
+>         return MOCKITO_CORE.mock(classToMock, mockSettings, true);^M
+899c899
+<                 .defaultAnswer(CALLS_REAL_METHODS)); ^M
+---
+>                 .defaultAnswer(CALLS_REAL_METHODS), true); ^M
+diff -r Mockito_16_buggy/src/org/mockito/internal/MockitoCore.java Mockito_16_fixed/src/org/mockito\
+/internal/MockitoCore.java
+32,33c32
+<     public <T> T mock(Class<T> classToMock, MockSettings mockSettings, boolean shouldResetOngoing\
+Stubbing) { return mock(classToMock, mockSettings); }^M
+<     public <T> T mock(Class<T> classToMock, MockSettings mockSettings) {^M
+---
+>     public <T> T mock(Class<T> classToMock, MockSettings mockSettings, boolean shouldResetOngoing\
+Stubbing) {^M
+34a34
+>         if (shouldResetOngoingStubbing) {^M
+35a36
+>         }^M","DU:Def-and-use
+OA:One-action",,,,,,,,,,,,,,,,,,,,
+Time_3b1,"638a639
+>         if (amount != 0) {
+639a641
+>         }",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Time_3b2,"659a662
+>         if (years != 0) {
+660a664
+>         }",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Time_3b4,"722a731
+>         if (weeks != 0) {
+723a733
+>         }",OA:One-action,,,,,,,,,,,,,,,,,,,,
+Time_7,"707a708
+>         int defaultYear = DateTimeUtils.getChronology(chrono).year().get(instantMillis);
+710d710
+<         int defaultYear = chrono.year().get(instantLocal);",FU:Fix-and-undo,,,,,,,,,,,,,,,,,,,,
